@@ -4,6 +4,7 @@ import com.fitnessApp.userservice.Repository.UserRepository;
 import com.fitnessApp.userservice.dto.RegisterRequestDTO;
 import com.fitnessApp.userservice.dto.UserResponseDTO;
 import com.fitnessApp.userservice.exception.EmailAlreadyExistsException;
+import com.fitnessApp.userservice.exception.UserNotFoundException;
 import com.fitnessApp.userservice.model.User;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -46,7 +47,7 @@ public class UserService {
 
     public UserResponseDTO getUserProfile(String userId) {
         Optional<User> user = userRepository.findById(userId);
-        return user.map(UserService::toDto).orElseThrow();
+        return user.map(UserService::toDto).orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     public Boolean existByUserId(String userId) {
