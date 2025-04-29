@@ -1,0 +1,31 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/
+      database: fitnessactivity
+  rabbitmq:
+    password: guest
+    username: guest
+    host: localhost
+    port: 5672
+
+server:
+  port: 8083
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+rabbitmq:
+  queue:
+    name: activity.queue
+  routing:
+    key: activity.tracking
+  exchange:
+    name: fitness.exchange
+
+gemini:
+  api:
+    url: ${GEMINI_API_URL}
+    key: ${GEMINI_API_KEY}
