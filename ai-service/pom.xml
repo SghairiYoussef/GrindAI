@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.fitness</groupId>
-    <artifactId>aiservice</artifactId>
+    <artifactId>ai-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>aiservice</name>
     <description>aiservice</description>
