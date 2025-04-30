@@ -49,9 +49,6 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO loginRequest) {
         Optional<String> tokenOptional = userService.authenticate(loginRequest);
-        if (tokenOptional.isPresent()) {
-            return ResponseEntity.ok(new LoginResponseDTO(tokenOptional.get()));
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        return tokenOptional.map(s -> ResponseEntity.ok(new LoginResponseDTO(s))).orElseGet(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 }
