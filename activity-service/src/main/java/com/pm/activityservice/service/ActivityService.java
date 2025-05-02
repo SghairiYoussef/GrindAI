@@ -1,5 +1,7 @@
 package com.pm.activityservice.service;
 
+import com.pm.activityservice.Exception.ActivityNotFoundException;
+import com.pm.activityservice.Exception.UserNotFoundException;
 import com.pm.activityservice.dto.ActivityRequest;
 import com.pm.activityservice.dto.ActivityResponse;
 import com.pm.activityservice.model.Activity;
@@ -45,7 +47,7 @@ public class ActivityService {
     public ActivityResponse trackActivity(ActivityRequest request) {
         boolean isValidUser = userValidationService.validateUser(request.getUserId());
         if (!isValidUser) {
-            throw new RuntimeException("Invalid user: " + request.getUserId());
+            throw new UserNotFoundException("Invalid user: " + request.getUserId());
         }
 
         Activity activity = Activity.builder()
@@ -70,6 +72,9 @@ public class ActivityService {
 
     public List<ActivityResponse> getUserActivities(String userId) {
         List<Activity> activities = activityRepository.findByUserId(userId);
+        if (activities.isEmpty()) {
+            throw new ActivityNotFoundException("No activities found for userId: " + userId);
+        }
         return activities.stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
@@ -78,6 +83,7 @@ public class ActivityService {
     public ActivityResponse getActivityById(String activityId) {
         return activityRepository.findById(activityId)
                 .map(this::mapToResponse)
-                .orElseThrow(() -> new RuntimeException("Activity Not Found"));
+                .orElseThrow(() -> new ActivityNotFoundException("No activity found for activityId: " + activityId));
     }
+
 }
