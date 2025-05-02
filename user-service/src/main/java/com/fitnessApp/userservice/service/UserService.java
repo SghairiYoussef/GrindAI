@@ -52,7 +52,7 @@ public class UserService {
         return toDto(savedUser);
     }
 
-        public Optional<String> authenticate(LoginRequestDTO loginRequest) {
+        public Optional<String> authenticate(@Valid LoginRequestDTO loginRequest) {
         return userRepository.findByEmail(loginRequest.getEmail())
                 .filter(u -> passwordEncoder.matches(loginRequest.getPassword(), u.getPassword()))
                 .map(u-> jwtUtil.generateToken(u.getEmail(), String.valueOf(u.getRole())));

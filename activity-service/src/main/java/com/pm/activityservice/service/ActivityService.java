@@ -1,7 +1,7 @@
 package com.pm.activityservice.service;
 
-import com.pm.activityservice.Exception.ActivityNotFoundException;
-import com.pm.activityservice.Exception.UserNotFoundException;
+import com.pm.activityservice.exception.ActivityNotFoundException;
+import com.pm.activityservice.exception.UserNotFoundException;
 import com.pm.activityservice.dto.ActivityRequest;
 import com.pm.activityservice.dto.ActivityResponse;
 import com.pm.activityservice.model.Activity;
