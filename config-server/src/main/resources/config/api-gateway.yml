@@ -6,14 +6,21 @@ spring:
           uri: lb://USER-SERVICE
           predicates:
             - Path=/api/users/**
+          filters:
+            - JwtValidation
         - id: activity-service
           uri: lb://ACTIVITY-SERVICE
           predicates:
             - Path=/api/activities/**
+          filters:
+            - JwtValidation
+
         - id: ai-service
           uri: lb://AI-SERVICE
           predicates:
             - Path=/api/recommendations/**
+          filters:
+            - JwtValidation
 
 server:
   port: 8080
